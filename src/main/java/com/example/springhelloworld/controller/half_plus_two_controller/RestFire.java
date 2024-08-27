@@ -14,7 +14,7 @@ public class RestFire {
     String body = "{\"instances\": [1.0, 2.0, 5.0]}";
 
     @RequestMapping("fire")
-    public String webClientFire() {
+    public String fire() {
 
         // 创建 WebClient 实例
         WebClient webClient = WebClient.create();
