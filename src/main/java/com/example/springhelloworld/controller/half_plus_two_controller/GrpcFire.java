@@ -94,7 +94,8 @@ public class GrpcFire {
 
         System.out.println("step 11: build the request begin...");
         // build request
-        Predict.PredictRequest request = requestBuilder.build();
+        Predict.PredictRequest request = Predict.PredictRequest.newBuilder().setModelSpec(modelSpecBuilder).putInputs("inputs", proto).build();
+
         System.out.println("Printing request \n" + request.toString());
         System.out.println("step 11: build the request successfully");
 
