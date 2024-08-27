@@ -24,21 +24,23 @@ public class GrpcFire {
     String url = "v1/models/zxj_half_plus_two:predict";
     String body = "{\"instances\": [1.0, 2.0, 5.0]}";
 
-    private ManagedChannel channel;
-    private PredictionServiceGrpc.PredictionServiceBlockingStub stub;
+    //private ManagedChannel channel;
+    //private PredictionServiceGrpc.PredictionServiceBlockingStub stub;
 
 
     public GrpcFire() {
-        channel = ManagedChannelBuilder
-                .forAddress(host, port)
-                .usePlaintext()
-                .build();
-        stub = PredictionServiceGrpc.newBlockingStub(channel);
+
     }
 
     @RequestMapping("fire")
     public String fire() {
 
+
+        ManagedChannel channel = ManagedChannelBuilder
+                .forAddress(host, port)
+                .usePlaintext()
+                .build();
+        PredictionServiceGrpc.PredictionServiceBlockingStub stub = PredictionServiceGrpc.newBlockingStub(channel);
         // create PredictRequest
         Predict.PredictRequest.Builder requestBuilder = Predict.PredictRequest.newBuilder();
 
