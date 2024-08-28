@@ -6,12 +6,11 @@ import io.grpc.ManagedChannelBuilder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tensorflow.framework.DataType;
+import org.tensorflow.framework.TensorProto;
+import org.tensorflow.framework.TensorShapeProto;
 import tensorflow.serving.PredictionServiceGrpc;
 import tensorflow.serving.Predict;
 import tensorflow.serving.Model;
-import org.tensorflow.framework.TensorProto;
-import org.tensorflow.framework.TensorShapeProto;
-
 
 @RestController
 @RequestMapping("/half_plus_two/grpc")
@@ -20,14 +19,7 @@ public class GrpcFire {
     int port = 8500;
 
     String modelName = "zxj_half_plus_two";
-    long modelVersion = 123;
-    String url = "v1/models/zxj_half_plus_two:predict";
-    String body = "{\"instances\": [1.0, 2.0, 5.0]}";
-
-
-    public GrpcFire() {
-
-    }
+    //long modelVersion = 123;
 
     @RequestMapping("fire")
     public String fire() {
@@ -52,7 +44,7 @@ public class GrpcFire {
         // create ModelSpec
         Model.ModelSpec.Builder modelSpecBuilder = Model.ModelSpec.newBuilder();
         modelSpecBuilder.setName(modelName);
-        modelSpecBuilder.setVersion(Int64Value.of(modelVersion));
+        //modelSpecBuilder.setVersion(Int64Value.of(modelVersion));
         modelSpecBuilder.setSignatureName("serving_default");
         System.out.println("step 4: init the model successfully");
 
@@ -94,7 +86,13 @@ public class GrpcFire {
 
         System.out.println("step 11: build the request begin...");
         // build request
-        Predict.PredictRequest request = Predict.PredictRequest.newBuilder().setModelSpec(modelSpecBuilder).putInputs("inputs", proto).build();
+        Predict.PredictRequest.Builder builder = Predict.PredictRequest.newBuilder();
+        System.out.println("haha111");
+        builder.setModelSpec(modelSpecBuilder);
+        System.out.println("haha222");
+        builder.putInputs("inputs", proto);
+        System.out.println("haha333");
+        Predict.PredictRequest request = builder.build();
 
         System.out.println("Printing request \n" + request.toString());
         System.out.println("step 11: build the request successfully");
