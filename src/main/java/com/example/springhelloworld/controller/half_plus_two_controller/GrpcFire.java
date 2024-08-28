@@ -15,7 +15,7 @@ import tensorflow.serving.Model;
 @RestController
 @RequestMapping("/half_plus_two/grpc")
 public class GrpcFire {
-    String host = "127.0.0.1";
+    String host = "localhost";
     int port = 8500;
 
     String modelName = "zxj_half_plus_two";
