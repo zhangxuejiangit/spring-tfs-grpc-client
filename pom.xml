@@ -60,13 +60,6 @@
             <version>1.15.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.api.grpc/proto-google-common-protos -->
-        <dependency>
-            <groupId>com.google.api.grpc</groupId>
-            <artifactId>proto-google-common-protos</artifactId>
-            <version>2.43.0</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/io.grpc/grpc-stub -->
         <dependency>
             <groupId>io.grpc</groupId>
