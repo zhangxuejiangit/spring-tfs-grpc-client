@@ -18,7 +18,7 @@ public class PLEGrpcFire {
     String host = "localhost";
     int port = 8500;
 
-    String modelName = "zxj_half_plus_two";
+    String modelName = "ple";
     //long modelVersion = 123;
 
     @RequestMapping("fire")
