@@ -21,19 +21,31 @@ public class HPTGrpcFire {
     String modelName = "zxj_half_plus_two";
     //long modelVersion = 123;
 
-    @RequestMapping("fire")
-    public String fire() {
+    private ManagedChannel channel;
 
+    PredictionServiceGrpc.PredictionServiceBlockingStub stub;
+
+    public HPTGrpcFire() {
         System.out.println("step 1: init the channel begin...");
-        ManagedChannel channel = ManagedChannelBuilder
+        channel = ManagedChannelBuilder
                 .forAddress(host, port)
                 .usePlaintext()
                 .build();
         System.out.println("step 1: init the channel successfully");
 
         System.out.println("step 2: init the stub begin...");
-        PredictionServiceGrpc.PredictionServiceBlockingStub stub = PredictionServiceGrpc.newBlockingStub(channel);
+        stub = PredictionServiceGrpc.newBlockingStub(channel);
         System.out.println("step 2: init the stub successfully");
+
+
+    }
+
+    @RequestMapping("fire")
+    public String fire() {
+
+
+
+
 
         System.out.println("step 3: init the predict request begin...");
         // create PredictRequest
@@ -48,10 +60,10 @@ public class HPTGrpcFire {
         modelSpecBuilder.setSignatureName("serving_default");
         System.out.println("step 4: init the model successfully");
 
-        System.out.println("step 5: set the model into request begin...");
+        //System.out.println("step 5: set the model into request begin...");
         // set model for request
-        requestBuilder.setModelSpec(modelSpecBuilder);
-        System.out.println("step 5: set the model into request successfully");
+        //requestBuilder.setModelSpec(modelSpecBuilder);
+        //System.out.println("step 5: set the model into request successfully");
 
         System.out.println("step 6: init the tensor proto begin...");
         // create TensorProto with 3 floats
