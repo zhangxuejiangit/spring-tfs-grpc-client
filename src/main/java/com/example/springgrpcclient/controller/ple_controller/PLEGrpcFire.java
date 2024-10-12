@@ -53,7 +53,7 @@ public class PLEGrpcFire {
         System.out.println("step 1: init the tensor proto begin...");
         // create TensorProto with 3 floats
         TensorProto.Builder tensorProtoBuilder = TensorProto.newBuilder();
-        tensorProtoBuilder.setDtype(DataType.DT_FLOAT);
+        tensorProtoBuilder.setDtype(DataType.DT_INT64);
         tensorProtoBuilder.addFloatVal(1);
         tensorProtoBuilder.addFloatVal(1);
         tensorProtoBuilder.addFloatVal(1);
@@ -63,7 +63,7 @@ public class PLEGrpcFire {
         System.out.println("step 2: init the tensor shape proto begin...");
         // create TensorShapeProto
         TensorShapeProto.Builder tensorShapeBuilder = TensorShapeProto.newBuilder();
-        tensorShapeBuilder.addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(1));
+        tensorShapeBuilder.addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(3));
         tensorShapeBuilder.addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(1));
         System.out.println("step 2: init the tensor shape proto successfully");
 
