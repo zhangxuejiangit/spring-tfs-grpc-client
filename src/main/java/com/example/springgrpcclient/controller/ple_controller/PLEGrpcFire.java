@@ -11,8 +11,7 @@ import tensorflow.serving.Model;
 import tensorflow.serving.Predict;
 import tensorflow.serving.PredictionServiceGrpc;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,6 +30,8 @@ public class PLEGrpcFire {
     private PredictionServiceGrpc.PredictionServiceBlockingStub stub;
 
     private Model.ModelSpec.Builder modelSpecBuilder;
+
+    private Map<String, TensorProto> featureMap;
 
     public PLEGrpcFire() {
         System.out.println("step i1: init the channel begin...");
@@ -51,6 +52,42 @@ public class PLEGrpcFire {
         //modelSpecBuilder.setVersion(Int64Value.of(modelVersion));
         modelSpecBuilder.setSignatureName("serving_default");
         System.out.println("step i3: init the model successfully");
+
+        init_feature_map();
+    }
+
+    private void init_feature_map() {
+        featureMap = new HashMap<>();
+        featureMap.put("avg_playtime_15d", createFloatTensorProto(Arrays.asList(0.0f)));
+
+        System.out.println("step i4: init the feature map successfully");
+        System.out.println(featureMap.toString());
+    }
+
+    private TensorProto createIntTensorProto(List<Integer> collections) {
+        return TensorProto.newBuilder()
+                .setDtype(DataType.DT_INT32)
+                .addAllIntVal(collections)
+                .setTensorShape(
+                        TensorShapeProto.newBuilder()
+                                .addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(1))
+                                .addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(collections.size()))
+                                .build()
+                )
+                .build();
+    }
+
+    private TensorProto createFloatTensorProto(List<Float> collections) {
+        return TensorProto.newBuilder()
+                .setDtype(DataType.DT_FLOAT)
+                .addAllFloatVal(collections)
+                .setTensorShape(
+                        TensorShapeProto.newBuilder()
+                                .addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(1))
+                                .addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(collections.size()))
+                                .build()
+                )
+                .build();
     }
 
     @RequestMapping("fire")
