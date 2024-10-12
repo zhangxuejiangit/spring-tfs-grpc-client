@@ -11,6 +11,11 @@ import tensorflow.serving.Model;
 import tensorflow.serving.Predict;
 import tensorflow.serving.PredictionServiceGrpc;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 @RestController
 @RequestMapping("/ple/grpc")
@@ -54,10 +59,7 @@ public class PLEGrpcFire {
         // create TensorProto with 3 floats
         TensorProto.Builder tensorProtoBuilder = TensorProto.newBuilder();
         tensorProtoBuilder.setDtype(DataType.DT_INT32);
-        tensorProtoBuilder.addIntVal(1);
-        tensorProtoBuilder.addIntVal(1);
-        tensorProtoBuilder.addIntVal(1);
-
+        tensorProtoBuilder.addAllIntVal(Stream.of(1, 1, 1).collect(Collectors.toList()));
         System.out.println("step 1: init the tensor proto successfully");
 
         System.out.println("step 2: init the tensor shape proto begin...");
