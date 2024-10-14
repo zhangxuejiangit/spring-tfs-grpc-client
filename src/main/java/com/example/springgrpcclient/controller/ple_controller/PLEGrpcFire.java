@@ -131,7 +131,7 @@ public class PLEGrpcFire {
                 .setDtype(DataType.DT_INT32)
                 .setTensorShape(
                         TensorShapeProto.newBuilder()
-                                .addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(1))
+                                .addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(100))
                                 .addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(collections.size()))
                                 .build()
                 );
@@ -147,7 +147,7 @@ public class PLEGrpcFire {
                 .setDtype(DataType.DT_FLOAT)
                 .setTensorShape(
                         TensorShapeProto.newBuilder()
-                                .addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(1))
+                                .addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(100))
                                 .addDim(org.tensorflow.framework.TensorShapeProto.Dim.newBuilder().setSize(collections.size()))
                                 .build()
                 );
